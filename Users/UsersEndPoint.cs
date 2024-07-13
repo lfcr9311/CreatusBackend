@@ -1,7 +1,6 @@
 using CreatusBackend.Data;
+using CreatusBackend.Users;
 using Microsoft.EntityFrameworkCore;
-
-namespace CreatusBackend.Users;
 
 public static class UsersEndPoint
 {
@@ -21,7 +20,6 @@ public static class UsersEndPoint
                 
                 var newUser = new User(request.Name, request.Email,
                         request.Password, request.Level);
-
                     await context.Users.AddAsync(newUser);
                     await context.SaveChangesAsync();
                     return Results.Created($"/user/{newUser.Id}", new 

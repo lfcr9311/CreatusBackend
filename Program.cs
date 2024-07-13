@@ -1,5 +1,4 @@
 using CreatusBackend.Data;
-using CreatusBackend.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 

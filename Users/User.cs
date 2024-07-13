@@ -1,7 +1,4 @@
-namespace CreatusBackend.Users;
-
-public class User
-{
+public class User {
     public Guid Id { get; init; } = Guid.NewGuid();
     
     public string Name { get; set; }
