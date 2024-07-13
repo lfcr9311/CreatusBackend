@@ -1,0 +1,6 @@
+@CreatusBackend_HostAddress = http://localhost:5215
+
+GET {{CreatusBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
