@@ -186,58 +186,8 @@ public static class UsersRepositories
                 return Results.BadRequest(e.Message);
             }
         });
-        
+
         endPoint.MapGet("/report", async (AppDbContext context, HttpContext httpContext) =>
-        {
-            var user = httpContext.User;
-            if (!user.Identity.IsAuthenticated)
-            {
-                return Results.Unauthorized();
-            }
-
-            var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
-            if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
-            {
-                return Results.Forbid();
-            }
-
-            try
-            {
-                if (userLevel < 4)
-                {
-                    return Results.Forbid();
-                }
-
-                var users = await context.Users.ToListAsync();
-                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-                {
-                    Delimiter = ",",
-                    HasHeaderRecord = true,
-                };
-
-                using (var memoryStream = new MemoryStream())
-                using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
-                using (var csvWriter = new CsvWriter(streamWriter, config))
-                {
-                    csvWriter.WriteRecords(users);
-                    streamWriter.Flush();
-                    memoryStream.Position = 0;
-                    var fileBytes = memoryStream.ToArray();
-                    
-                    var filePath = "CSV/users.csv"; 
-                    await File.WriteAllBytesAsync(filePath, fileBytes);
-
-                   
-                    return Results.Ok("Arquivo CSV salvo com sucesso em " + filePath);
-                }
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-        });
-
-        endPoint.MapGet("/report/pdf", async (AppDbContext context, HttpContext httpContext) =>
 {
     var user = httpContext.User;
     if (!user.Identity.IsAuthenticated)
