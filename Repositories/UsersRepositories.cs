@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using CreatusBackend.Data;
 using CreatusBackend.Services;
@@ -45,7 +44,7 @@ public static class UsersRepositories
             }
         });
 
-        endPoint.MapGet("list", async (AppDbContext context) =>
+        endPoint.MapGet("/list", async (AppDbContext context) =>
         {
             try
             {
@@ -82,33 +81,66 @@ public static class UsersRepositories
             }
         });
 
-        endPoint.MapDelete("{id}", async (Guid id, AppDbContext context) =>
+        endPoint.MapDelete("{id}", async (Guid id, AppDbContext context, HttpContext httpContext) =>
         {
+            var user = httpContext.User;
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Results.Unauthorized();
+            }
+
+            var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
+            if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
+            {
+                return Results.Forbid();
+            }
+
             try
             {
-                var user = await context.Users.FindAsync(id);
-                if (user == null)
+                if (userLevel < 4)
+                {
+                    return Results.Forbid();
+                }
+
+                var userToDelete = await context.Users.FindAsync(id);
+                if (userToDelete == null)
                 {
                     return Results.NotFound();
                 }
 
-                context.Users.Remove(user);
+                context.Users.Remove(userToDelete);
                 await context.SaveChangesAsync();
                 return Results.Ok(new { message = "User deleted successfully" });
             }
             catch (Exception e)
             {
-                return Results.BadRequest();
+                return Results.BadRequest(e.Message);
             }
-
         });
 
-        endPoint.MapPut("{id}", async (Guid id, UpdateUserReq request, AppDbContext context) =>
+        endPoint.MapPut("{id}", async (Guid id, UpdateUserReq request, AppDbContext context, HttpContext httpContext) =>
         {
-            var user = await context.Users.FindAsync(id);
-
             try
             {
+                // Obtém o ID do usuário a partir do token JWT
+                var userIdFromToken = httpContext.User.FindFirst("id")?.Value;
+
+                if (userIdFromToken == null)
+                {
+                    return Results.Unauthorized();
+                }
+
+                // Converte o ID do token para Guid
+                var userId = Guid.Parse(userIdFromToken);
+
+                // Verifica se o ID do usuário no token corresponde ao ID do perfil que está sendo atualizado
+                if (userId != id)
+                {
+                    return Results.Forbid();
+                }
+
+                var user = await context.Users.FindAsync(id);
+
                 if (user == null)
                 {
                     return Results.NotFound();
@@ -118,14 +150,16 @@ public static class UsersRepositories
                 user.Email = request.Email;
                 user.Password = request.Password;
                 await context.SaveChangesAsync();
+
                 return Results.Ok(new { message = "User updated successfully" });
             }
             catch (Exception e)
             {
-                throw new Exception();
+                return Results.BadRequest();
             }
-
         });
+
+
 
         endPoint.MapPut("level/{id}", async (Guid id, UserLevelReq request, AppDbContext context, HttpContext httpContext) =>
         {
@@ -165,111 +199,106 @@ public static class UsersRepositories
             }
         });
 
-    endPoint.MapPost("/login", async (UserLoginReq login, AppDbContext context, AuthToken authToken) =>
+        endPoint.MapPost("/login", async (UserLoginReq login, AppDbContext context, AuthToken authToken) =>
+            {
+                try
+                {
+                    var user = await context.Users
+                        .FirstOrDefaultAsync(u => u.Email == login.Email 
+                                                  && u.Password == login.Password);
+                    if (user == null)
+                    {
+                        return Results.NotFound("User not found");
+                    }
+
+                    var token = authToken.GenerateToken(user);
+                    var level = user.Level;
+                    return Results.Ok(new { token });
+                }
+                catch (Exception e)
+                {
+                    return Results.BadRequest(e.Message);
+                }
+            });
+
+                endPoint.MapGet("/report", async (AppDbContext context, HttpContext httpContext) =>
         {
+            var user = httpContext.User;
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Results.Unauthorized();
+            }
+
+            var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
+            if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
+            {
+                return Results.Forbid();
+            }
+
             try
             {
-                var user = await context.Users
-                    .FirstOrDefaultAsync(u => u.Email == login.Email 
-                                              && u.Password == login.Password);
-                if (user == null)
+                if (userLevel < 4)
                 {
-                    return Results.NotFound("User not found");
+                    return Results.Forbid();
+                } 
+                var users = await context.Users.ToListAsync();
+                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                {
+                    Delimiter = ",",
+                    HasHeaderRecord = true,
+                };
+
+                var csvFilePath = "CSV/users.csv";
+                if (!File.Exists(csvFilePath))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
+                    using (var csvWriter = new CsvWriter(streamWriter, config))
+                    {
+                        csvWriter.WriteRecords(users);
+                        streamWriter.Flush();
+                        memoryStream.Position = 0;
+                        var fileBytes = memoryStream.ToArray();
+                        await File.WriteAllBytesAsync(csvFilePath, fileBytes);
+                    }
                 }
 
-                var token = authToken.GenerateToken(user);
-                var level = user.Level;
-                return Results.Ok(new { token });
+                using (var reader = new StreamReader(csvFilePath))
+                using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    var records = csv.GetRecords<dynamic>().ToList();
+
+                    var pdfDocument = new PdfDocument();
+                    var pdfPage = pdfDocument.AddPage();
+                    pdfPage.Orientation = PdfSharpCore.PageOrientation.Landscape;
+                    var graphics = XGraphics.FromPdfPage(pdfPage);
+                    var textFormatter = new XTextFormatter(graphics);
+
+                    var font = new XFont("Arial", 12, XFontStyle.Regular);
+                    var margin = 40;
+                    var currentY = margin;
+
+                    foreach (var record in records)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (KeyValuePair<string, object> pair in record)
+                        {
+                            sb.Append($"{pair.Key}: {pair.Value} ");
+                        }
+                        textFormatter.DrawString(sb.ToString(), font, XBrushes.Black, new XRect(margin, currentY, pdfPage.Width - 2 * margin, pdfPage.Height - 2 * margin), XStringFormats.TopLeft);
+                        currentY += 20;
+                    }
+
+                    var pdfFilePath = "CSV/users.pdf";
+                    pdfDocument.Save(pdfFilePath);
+
+                    return Results.Ok(new { message = "Arquivo CSV e PDF gerados com sucesso.", csvFilePath, pdfFilePath });
+                }
             }
             catch (Exception e)
             {
                 return Results.BadRequest(e.Message);
             }
         });
-
-        endPoint.MapGet("/report", async (AppDbContext context, HttpContext httpContext) =>
-{
-    var user = httpContext.User;
-    if (!user.Identity.IsAuthenticated)
-    {
-        return Results.Unauthorized();
-    }
-
-    var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
-    if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
-    {
-        return Results.Forbid();
-    }
-
-    try
-    {
-        if (userLevel < 4)
-        {
-            return Results.Forbid();
-        }
-
-        var users = await context.Users.ToListAsync();
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-        {
-            Delimiter = ",",
-            HasHeaderRecord = true,
-        };
-
-        var csvFilePath = "CSV/users.csv";
-        if (!File.Exists(csvFilePath))
-        {
-            using (var memoryStream = new MemoryStream())
-            using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
-            using (var csvWriter = new CsvWriter(streamWriter, config))
-            {
-                csvWriter.WriteRecords(users);
-                streamWriter.Flush();
-                memoryStream.Position = 0;
-                var fileBytes = memoryStream.ToArray();
-                await File.WriteAllBytesAsync(csvFilePath, fileBytes);
-            }
-        }
-
-        using (var reader = new StreamReader(csvFilePath))
-        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
-        {
-            var records = csv.GetRecords<dynamic>().ToList();
-
-            var pdfDocument = new PdfDocument();
-            var pdfPage = pdfDocument.AddPage();
-            pdfPage.Orientation = PdfSharpCore.PageOrientation.Landscape;
-            var graphics = XGraphics.FromPdfPage(pdfPage);
-            var textFormatter = new XTextFormatter(graphics);
-
-            var font = new XFont("Arial", 12, XFontStyle.Regular);
-            var margin = 40;
-            var currentY = margin;
-
-            foreach (var record in records)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (KeyValuePair<string, object> pair in record)
-                {
-                    sb.Append($"{pair.Key}: {pair.Value} ");
-                }
-                textFormatter.DrawString(sb.ToString(), font, XBrushes.Black, new XRect(margin, currentY, pdfPage.Width - 2 * margin, pdfPage.Height - 2 * margin), XStringFormats.TopLeft);
-                currentY += 20;
-            }
-
-            var pdfFilePath = "CSV/users.pdf";
-            pdfDocument.Save(pdfFilePath);
-
-            return Results.Ok(new { message = "Arquivo CSV e PDF gerados com sucesso.", csvFilePath, pdfFilePath });
-        }
-    }
-    catch (Exception e)
-    {
-        return Results.BadRequest(e.Message);
-    }
-});
-
-
-
-
     }
 }
