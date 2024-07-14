@@ -6,22 +6,21 @@ using CreatusBackend.Services;
 using CreatusBackend.Users;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-public static class UsersEndPoint
+public static class UsersRepositories
 {
     public static void RegisterUsersEndPoint(this WebApplication app)
     {
-        
+
         var endPoint = app.MapGroup("/users");
         endPoint.MapPost("", async (AddUserReq request, AppDbContext context) =>
         {
             try
             {
                 var hasUser = await context.Users
-                    .AnyAsync(user => user.Name == request.Name);
+                    .AnyAsync(user => user.Name == request.Name || user.Email == request.Email);
                 if (hasUser)
                 {
                     return Results.BadRequest("User already exists");
@@ -39,8 +38,7 @@ public static class UsersEndPoint
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return Results.BadRequest();
             }
         });
 
@@ -53,11 +51,11 @@ public static class UsersEndPoint
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return Results.BadRequest();
             }
 
         });
-        
+
         endPoint.MapGet("{id}", async (Guid id, AppDbContext context) =>
         {
             try
@@ -73,11 +71,10 @@ public static class UsersEndPoint
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return Results.BadRequest();
             }
         });
-        
+
         endPoint.MapDelete("{id}", async (Guid id, AppDbContext context) =>
         {
             try
@@ -94,7 +91,7 @@ public static class UsersEndPoint
             }
             catch (Exception e)
             {
-                return Results.BadRequest(e.Message);
+                return Results.BadRequest();
             }
 
         });
@@ -113,19 +110,55 @@ public static class UsersEndPoint
                 user.Name = request.Name;
                 user.Email = request.Email;
                 user.Password = request.Password;
-                user.Level = request.Level;
                 await context.SaveChangesAsync();
                 return Results.Ok(new { message = "User updated successfully" });
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new Exception();
             }
 
         });
 
-        
-        endPoint.MapPost("/login", async (UserLoginReq login, AppDbContext context, AuthToken authToken) =>
+        endPoint.MapPut("level/{id}", async (Guid id, UserLevelReq request, AppDbContext context, HttpContext httpContext) =>
+        {
+            var user = httpContext.User;
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Results.Unauthorized();
+            }
+            var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
+            if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
+            {
+                return Results.Forbid();
+            }
+
+            try
+            {
+                if (userLevel < 4)
+                {
+                    return Results.Forbid();
+                }
+
+                var userToUpdate = await context.Users.FindAsync(id);
+                
+                if (userToUpdate == null)
+                {
+                    return Results.NotFound();
+                }
+
+                userToUpdate.Level = request.Level;
+                await context.SaveChangesAsync();
+
+                return Results.Ok(new { message = "Nível do usuário atualizado com sucesso" });
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        });
+
+    endPoint.MapPost("/login", async (UserLoginReq login, AppDbContext context, AuthToken authToken) =>
         {
             try
             {
@@ -149,7 +182,6 @@ public static class UsersEndPoint
         
         endPoint.MapGet("/report", async (AppDbContext context, HttpContext httpContext) =>
         {
-            // Verifica se o usuário está autenticado
             var user = httpContext.User;
             if (!user.Identity.IsAuthenticated)
             {
@@ -164,6 +196,12 @@ public static class UsersEndPoint
 
             try
             {
+                // Verifica se o usuário tem permissão para gerar o relatório (userLevel >= 4)
+                if (userLevel < 4)
+                {
+                    return Results.Forbid();
+                }
+
                 var users = await context.Users.ToListAsync();
                 var config = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
@@ -171,7 +209,6 @@ public static class UsersEndPoint
                     HasHeaderRecord = true,
                 };
 
-                // Gerar o conteúdo do CSV
                 using (var memoryStream = new MemoryStream())
                 using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
                 using (var csvWriter = new CsvWriter(streamWriter, config))
@@ -181,11 +218,11 @@ public static class UsersEndPoint
                     memoryStream.Position = 0;
                     var fileBytes = memoryStream.ToArray();
 
-                    
+                    // Define o caminho do arquivo onde será salvo
                     var filePath = "CSV/users.csv"; 
                     await File.WriteAllBytesAsync(filePath, fileBytes);
 
-                    
+                    // Retorna uma resposta OK indicando o sucesso e o caminho do arquivo salvo
                     return Results.Ok("Arquivo CSV salvo com sucesso em " + filePath);
                 }
             }
@@ -194,7 +231,6 @@ public static class UsersEndPoint
                 return Results.BadRequest(e.Message);
             }
         });
-
 
     }
 }
