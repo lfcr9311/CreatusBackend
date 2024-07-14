@@ -8,18 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c80f893-b8b1-4e46-b7d5-ba873f821341" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" afterDir="false" />
-    </list>
+    <list default="true" id="1c80f893-b8b1-4e46-b7d5-ba873f821341" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,7 +119,7 @@
       <workItem from="1720893549979" duration="4521000" />
       <workItem from="1720908822080" duration="2996000" />
       <workItem from="1720912874546" duration="4645000" />
-      <workItem from="1720917693331" duration="16699000" />
+      <workItem from="1720917693331" duration="17055000" />
     </task>
     <servers />
   </component>
