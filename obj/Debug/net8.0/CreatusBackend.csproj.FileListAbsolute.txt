@@ -137,3 +137,8 @@
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/System.Security.Permissions.dll
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/CsvHelper.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/PdfSharpCore.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/ICSharpCode.SharpZipLib.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/SixLabors.Fonts.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/SixLabors.ImageSharp.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/de/PdfSharpCore.resources.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "u6Dhoso8Ac1U69l6KlHqLI9FPqZKua8ISaMo/LChkdC1Y7/z+ngiWsCAUBZj7w64ffDY+LZVSDo/KGYx0lCdeQ==",
+  "dgSpecHash": "PIvMZ1hpMMQEW5ue6x2mMm5TwSXRptVoleRM8DqfKZWbxcAi9tmjyeEyjKfcxxPpfYexbWfaaH+OdAR/s1gj0w==",
   "success": true,
   "projectFilePath": "/Users/luisrossi/Documents/CreatusBackend/CreatusBackend.csproj",
   "expectedPackageFiles": [
@@ -61,6 +61,10 @@
     "/Users/luisrossi/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/luisrossi/.nuget/packages/microsoft.win32.registry/4.5.0/microsoft.win32.registry.4.5.0.nupkg.sha512",
     "/Users/luisrossi/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/luisrossi/.nuget/packages/pdfsharpcore/1.3.65/pdfsharpcore.1.3.65.nupkg.sha512",
+    "/Users/luisrossi/.nuget/packages/sharpziplib/1.4.2/sharpziplib.1.4.2.nupkg.sha512",
+    "/Users/luisrossi/.nuget/packages/sixlabors.fonts/1.0.0-beta17/sixlabors.fonts.1.0.0-beta17.nupkg.sha512",
+    "/Users/luisrossi/.nuget/packages/sixlabors.imagesharp/1.0.4/sixlabors.imagesharp.1.0.4.nupkg.sha512",
     "/Users/luisrossi/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/luisrossi/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
     "/Users/luisrossi/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",

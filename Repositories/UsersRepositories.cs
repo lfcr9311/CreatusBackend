@@ -7,6 +7,9 @@ using CreatusBackend.Users;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Drawing.Layout;
+using PdfSharpCore.Pdf;
 
 
 public static class UsersRepositories
@@ -47,6 +50,10 @@ public static class UsersRepositories
             try
             {
                 var users = await context.Users.ToListAsync();
+                if(users.Count == 0)
+                {
+                    return Results.NotFound();
+                }
                 return Results.Ok(users);
             }
             catch (Exception e)
@@ -196,7 +203,6 @@ public static class UsersRepositories
 
             try
             {
-                // Verifica se o usuário tem permissão para gerar o relatório (userLevel >= 4)
                 if (userLevel < 4)
                 {
                     return Results.Forbid();
@@ -217,12 +223,11 @@ public static class UsersRepositories
                     streamWriter.Flush();
                     memoryStream.Position = 0;
                     var fileBytes = memoryStream.ToArray();
-
-                    // Define o caminho do arquivo onde será salvo
+                    
                     var filePath = "CSV/users.csv"; 
                     await File.WriteAllBytesAsync(filePath, fileBytes);
 
-                    // Retorna uma resposta OK indicando o sucesso e o caminho do arquivo salvo
+                   
                     return Results.Ok("Arquivo CSV salvo com sucesso em " + filePath);
                 }
             }
@@ -231,6 +236,90 @@ public static class UsersRepositories
                 return Results.BadRequest(e.Message);
             }
         });
+
+        endPoint.MapGet("/report/pdf", async (AppDbContext context, HttpContext httpContext) =>
+{
+    var user = httpContext.User;
+    if (!user.Identity.IsAuthenticated)
+    {
+        return Results.Unauthorized();
+    }
+
+    var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
+    if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
+    {
+        return Results.Forbid();
+    }
+
+    try
+    {
+        if (userLevel < 4)
+        {
+            return Results.Forbid();
+        }
+
+        var users = await context.Users.ToListAsync();
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ",",
+            HasHeaderRecord = true,
+        };
+
+        var csvFilePath = "CSV/users.csv";
+        if (!File.Exists(csvFilePath))
+        {
+            using (var memoryStream = new MemoryStream())
+            using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
+            using (var csvWriter = new CsvWriter(streamWriter, config))
+            {
+                csvWriter.WriteRecords(users);
+                streamWriter.Flush();
+                memoryStream.Position = 0;
+                var fileBytes = memoryStream.ToArray();
+                await File.WriteAllBytesAsync(csvFilePath, fileBytes);
+            }
+        }
+
+        using (var reader = new StreamReader(csvFilePath))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            var records = csv.GetRecords<dynamic>().ToList();
+
+            var pdfDocument = new PdfDocument();
+            var pdfPage = pdfDocument.AddPage();
+            pdfPage.Orientation = PdfSharpCore.PageOrientation.Landscape;
+            var graphics = XGraphics.FromPdfPage(pdfPage);
+            var textFormatter = new XTextFormatter(graphics);
+
+            var font = new XFont("Arial", 12, XFontStyle.Regular);
+            var margin = 40;
+            var currentY = margin;
+
+            foreach (var record in records)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (KeyValuePair<string, object> pair in record)
+                {
+                    sb.Append($"{pair.Key}: {pair.Value} ");
+                }
+                textFormatter.DrawString(sb.ToString(), font, XBrushes.Black, new XRect(margin, currentY, pdfPage.Width - 2 * margin, pdfPage.Height - 2 * margin), XStringFormats.TopLeft);
+                currentY += 20;
+            }
+
+            var pdfFilePath = "CSV/users.pdf";
+            pdfDocument.Save(pdfFilePath);
+
+            return Results.Ok(new { message = "Arquivo CSV e PDF gerados com sucesso.", csvFilePath, pdfFilePath });
+        }
+    }
+    catch (Exception e)
+    {
+        return Results.BadRequest(e.Message);
+    }
+});
+
+
+
 
     }
 }
