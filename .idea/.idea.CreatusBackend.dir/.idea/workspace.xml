@@ -9,33 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c80f893-b8b1-4e46-b7d5-ba873f821341" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CSV/users.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSV/users.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Migrations/20240714040320_UpdateUserModel.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Migrations/20240714040320_UpdateUserModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.sqlite-shm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.sqlite-wal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreatusBackend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CreatusBackend.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repositories/UsersRepositories.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/UsersRepositories.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/AuthToken.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AuthToken.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/app.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +130,7 @@
       <workItem from="1720893549979" duration="4521000" />
       <workItem from="1720908822080" duration="2996000" />
       <workItem from="1720912874546" duration="4645000" />
-      <workItem from="1720917693331" duration="16017000" />
+      <workItem from="1720917693331" duration="16699000" />
     </task>
     <servers />
   </component>

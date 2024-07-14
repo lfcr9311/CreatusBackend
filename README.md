@@ -51,4 +51,4 @@ Este projeto foi desenvolvido como desafio da empresa Creatus para cargo de Est�
 1. Foi adicionado um endpoint de trocar somente o 'level' do usuário,
 que só pode ser acessado por um usuário autenticado e com level 4 ou 5.
 2. No endpoint de Deletar, somente usuários 'level' 4 ou 5 podem deletar contas.
-3. No endpoint de Atualizar usuário, somente o usuário autenticado pode atualizar seus dados.
+3. Endpoint de /report gera um relatório em PDF e CSV dos usuários cadastrados.

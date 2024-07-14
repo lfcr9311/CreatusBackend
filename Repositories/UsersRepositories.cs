@@ -118,29 +118,12 @@ public static class UsersRepositories
             }
         });
 
-        endPoint.MapPut("{id}", async (Guid id, UpdateUserReq request, AppDbContext context, HttpContext httpContext) =>
+        endPoint.MapPut("{id}", async (Guid id, UpdateUserReq request, AppDbContext context) =>
         {
+            var user = await context.Users.FindAsync(id);
+
             try
             {
-                // Obtém o ID do usuário a partir do token JWT
-                var userIdFromToken = httpContext.User.FindFirst("id")?.Value;
-
-                if (userIdFromToken == null)
-                {
-                    return Results.Unauthorized();
-                }
-
-                // Converte o ID do token para Guid
-                var userId = Guid.Parse(userIdFromToken);
-
-                // Verifica se o ID do usuário no token corresponde ao ID do perfil que está sendo atualizado
-                if (userId != id)
-                {
-                    return Results.Forbid();
-                }
-
-                var user = await context.Users.FindAsync(id);
-
                 if (user == null)
                 {
                     return Results.NotFound();
@@ -150,16 +133,14 @@ public static class UsersRepositories
                 user.Email = request.Email;
                 user.Password = request.Password;
                 await context.SaveChangesAsync();
-
                 return Results.Ok(new { message = "User updated successfully" });
             }
             catch (Exception e)
             {
-                return Results.BadRequest();
+                throw new Exception();
             }
+
         });
-
-
 
         endPoint.MapPut("level/{id}", async (Guid id, UserLevelReq request, AppDbContext context, HttpContext httpContext) =>
         {
