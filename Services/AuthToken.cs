@@ -19,7 +19,8 @@ namespace CreatusBackend.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("level", user.Level.ToString())
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor

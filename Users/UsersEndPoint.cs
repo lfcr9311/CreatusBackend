@@ -1,10 +1,12 @@
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using CreatusBackend.Data;
 using CreatusBackend.Services;
 using CreatusBackend.Users;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -97,7 +99,6 @@ public static class UsersEndPoint
 
         });
 
-
         endPoint.MapPut("{id}", async (Guid id, UpdateUserReq request, AppDbContext context) =>
         {
             var user = await context.Users.FindAsync(id);
@@ -137,6 +138,7 @@ public static class UsersEndPoint
                 }
 
                 var token = authToken.GenerateToken(user);
+                var level = user.Level;
                 return Results.Ok(new { token });
             }
             catch (Exception e)
@@ -145,9 +147,21 @@ public static class UsersEndPoint
             }
         });
         
-        endPoint.MapGet("/report", async (AppDbContext context) =>
+        endPoint.MapGet("/report", async (AppDbContext context, HttpContext httpContext) =>
         {
-            
+            // Verifica se o usuário está autenticado
+            var user = httpContext.User;
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Results.Unauthorized();
+            }
+
+            var levelClaim = user.Claims.FirstOrDefault(c => c.Type == "level");
+            if (levelClaim == null || !int.TryParse(levelClaim.Value, out int userLevel))
+            {
+                return Results.Forbid();
+            }
+
             try
             {
                 var users = await context.Users.ToListAsync();
@@ -157,6 +171,7 @@ public static class UsersEndPoint
                     HasHeaderRecord = true,
                 };
 
+                // Gerar o conteúdo do CSV
                 using (var memoryStream = new MemoryStream())
                 using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
                 using (var csvWriter = new CsvWriter(streamWriter, config))
@@ -165,7 +180,13 @@ public static class UsersEndPoint
                     streamWriter.Flush();
                     memoryStream.Position = 0;
                     var fileBytes = memoryStream.ToArray();
-                    return Results.File(fileBytes, "text/csv", "users.csv");
+
+                    
+                    var filePath = "CSV/users.csv"; 
+                    await File.WriteAllBytesAsync(filePath, fileBytes);
+
+                    
+                    return Results.Ok("Arquivo CSV salvo com sucesso em " + filePath);
                 }
             }
             catch (Exception e)
@@ -173,5 +194,7 @@ public static class UsersEndPoint
                 return Results.BadRequest(e.Message);
             }
         });
+
+
     }
 }
