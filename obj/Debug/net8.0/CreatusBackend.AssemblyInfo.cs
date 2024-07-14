@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CreatusBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e9ab5845850b3f37f479abfe55f6c32de5ef0cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3f95edbfd91ad9ca99f6d4f52daac038c99b450")]
 [assembly: System.Reflection.AssemblyProductAttribute("CreatusBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CreatusBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

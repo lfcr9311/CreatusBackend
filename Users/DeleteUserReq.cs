@@ -1,3 +1,3 @@
 namespace CreatusBackend.Users;
 
-public record DeleteUserReq(Guid Id);
+public record DeleteUserReq(string Email, string Password);

@@ -127,3 +127,13 @@
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/System.Security.Permissions.dll
+/Users/luisrossi/Documents/CreatusBackend/bin/Debug/net8.0/CsvHelper.dll

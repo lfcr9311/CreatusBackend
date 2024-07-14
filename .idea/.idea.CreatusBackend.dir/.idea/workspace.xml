@@ -9,12 +9,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c80f893-b8b1-4e46-b7d5-ba873f821341" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JWTConfig/Settings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Users/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Users/User.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/AuthToken.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Users/UserLevelReq.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CsvHelper.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/Debug/net8.0/System.Security.Permissions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CreatusBackend.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreatusBackend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CreatusBackend.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Users/DeleteUserReq.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Users/DeleteUserReq.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Users/UpdateUserReq.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Users/UpdateUserReq.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Users/UsersEndPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Users/UsersEndPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/app.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.sqlite-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.sqlite-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/CreatusBackend.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/CreatusBackend.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CreatusBackend.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CreatusBackend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CreatusBackend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +80,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d7addf2f629941949b2501fda178a5b8c28a00/9b/d17e96e8/Guid.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -55,7 +97,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.CreatusBackend: http.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.CreatusBackend: http.executor&quot;: &quot;Run&quot;,
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -119,6 +161,9 @@
       <updated>1720893107863</updated>
       <workItem from="1720893107865" duration="405000" />
       <workItem from="1720893549979" duration="4521000" />
+      <workItem from="1720908822080" duration="2996000" />
+      <workItem from="1720912874546" duration="4645000" />
+      <workItem from="1720917693331" duration="652000" />
     </task>
     <servers />
   </component>
